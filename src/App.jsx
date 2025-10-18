@@ -1,7 +1,13 @@
+import AppRouter from './router/AppRouter';
+import { AuthProvider } from './context/AuthContext';
+import { BrowserRouter } from 'react-router-dom';
+
 export default function App() {
   return (
-    <div className="p-4 text-center text-xl text-gray-800">
-      🚀 LiveChat frontend started
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
