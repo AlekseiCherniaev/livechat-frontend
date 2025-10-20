@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ProfilePage from '../pages/ProfilePage';
+import RoomPage from '../pages/RoomPage';
+import AnalyticsPage from '../pages/AnalyticsPage';
 
 const ProtectedRoute = ({ user, children }) => {
   if (!user) return <Navigate to="/login" />;
@@ -27,8 +29,27 @@ export default function AppRouter() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/room/:roomId"
+        element={
+          <ProtectedRoute user={user}>
+            <RoomPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/analytics"
+        element={
+          <ProtectedRoute user={user}>
+            <AnalyticsPage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/me" />} />
-      <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/me" />} />
+      <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/login" />} />
     </Routes>
   );
 }
